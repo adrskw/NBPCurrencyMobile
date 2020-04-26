@@ -4,12 +4,28 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="NBPCurrencyMobile.Views.HomePage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="HomePage View!"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="NBPCurrencyMobile.Views.HomePage"
+             Title="NBPcurrency">
+    <ListView x:Name="CurrencyListView" VerticalOptions="FillAndExpand" HasUnevenRows="True">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <ViewCell.View>
+                        <StackLayout Style="{StaticResource CurrencyListStackLayoutStyle}">
+                            <Label Style="{StaticResource CurrencyListLabelStyle}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CurrencyName}"></Span>
+                                        <Span Text="{Binding CurrencyCode, StringFormat=' ({0})'}"></Span>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="{Binding CurrencyAverageExchangeRate}"
+                                    Style="{StaticResource CurrencyListLabelStyle}" />
+                        </StackLayout>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>

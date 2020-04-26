@@ -2,4 +2,14 @@
 <ResourceDictionary
                 xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style TargetType="Label" x:Key="CurrencyListLabelStyle">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="StackLayout" x:Key="CurrencyListStackLayoutStyle">
+        <Setter Property="Padding" Value="0,5,0,0" />
+    </Style>
 </ResourceDictionary>
