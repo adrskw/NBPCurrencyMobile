@@ -3,9 +3,17 @@
                 xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Style TargetType="Label" x:Key="CurrencyListLabelStyle">
+    <Style TargetType="Label" x:Key="CurrencyListNameLabelStyle">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="CurrencyListValueLabelStyle">
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{StaticResource SecondaryColor}" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 

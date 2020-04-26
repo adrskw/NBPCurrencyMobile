@@ -12,7 +12,7 @@
                 <ViewCell>
                     <ViewCell.View>
                         <StackLayout Style="{StaticResource CurrencyListStackLayoutStyle}">
-                            <Label Style="{StaticResource CurrencyListLabelStyle}">
+                            <Label Style="{StaticResource CurrencyListNameLabelStyle}">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="{Binding CurrencyName}"></Span>
@@ -21,7 +21,7 @@
                                 </Label.FormattedText>
                             </Label>
                             <Label Text="{Binding CurrencyAverageExchangeRate}"
-                                    Style="{StaticResource CurrencyListLabelStyle}" />
+                                    Style="{StaticResource CurrencyListValueLabelStyle}" />
                         </StackLayout>
                     </ViewCell.View>
                 </ViewCell>
