@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using NBPCurrencyMobile.Views;
 
 namespace NBPCurrencyMobile
 {
@@ -10,7 +11,7 @@ namespace NBPCurrencyMobile
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new TabsPage();
         }
 
         protected override void OnStart()
