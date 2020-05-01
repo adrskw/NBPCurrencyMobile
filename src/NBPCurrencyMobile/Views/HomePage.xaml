@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="NBPCurrencyMobile.Views.HomePage"
              Title="NBPcurrency">
-    <ListView x:Name="CurrencyListView" VerticalOptions="FillAndExpand" HasUnevenRows="True">
+    <ListView x:Name="CurrencyListView" VerticalOptions="FillAndExpand" HasUnevenRows="True" ItemTapped="CurrencyListView_ItemTapped">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
