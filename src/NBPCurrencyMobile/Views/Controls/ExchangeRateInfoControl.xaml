@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:NBPCurrencyMobile.Views.Controls"
+             x:Class="NBPCurrencyMobile.Views.Controls.ExchangeRateInfoControl"
+             x:Name="RootView">
+
+    <Button
+        x:Name="InfoButton"
+        Style="{StaticResource ExchangeRateInfoButtonStyle}"
+        Text="{Binding Path=Title, Source={x:Reference RootView}}"
+        Clicked="InfoButton_Clicked" />
+
+    <Grid
+        x:Name="InfoGrid"
+        Style="{StaticResource ExchangeRateInfoGridStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <BoxView
+            Grid.ColumnSpan="5"
+            Grid.Row="0"
+            Style="{StaticResource ExchangeRateInfoHorizontalBoxViewStyle}" />
+
+        <controls:ExchangeRateItemControl
+            Grid.Column="0"
+            Grid.Row="1"
+            Title="ŚREDNI"
+            Value="{Binding Path=AverageExchangeRate, Source={x:Reference RootView}}" />
+        <BoxView
+            Grid.Column="1"
+            Grid.Row="1"
+            Style="{StaticResource ExchangeRateInfoVerticalBoxViewStyle}" />
+
+        <controls:ExchangeRateItemControl
+            Grid.Column="2"
+            Grid.Row="1"
+            Title="MINIMALNY"
+            Value="{Binding Path=MinimumExchangeRate, Source={x:Reference RootView}}" />
+
+        <BoxView
+            Grid.Column="3"
+            Grid.Row="1"
+            Style="{StaticResource ExchangeRateInfoVerticalBoxViewStyle}" />
+
+        <controls:ExchangeRateItemControl
+            Grid.Column="4"
+            Grid.Row="1"
+            Title="MAKSYMALNY"
+            Value="{Binding Path=MaximumExchangeRate, Source={x:Reference RootView}}" />
+
+        <BoxView
+            Grid.ColumnSpan="5"
+            Grid.Row="2"
+            Style="{StaticResource ExchangeRateInfoHorizontalBoxViewStyle}" />
+
+        <controls:ExchangeRateItemControl
+            Grid.ColumnSpan="5"
+            Grid.Row="3"
+            Title="ODCHYLENIE STANDARDOWE"
+            Value="{Binding Path=StandardDeviation, Source={x:Reference RootView}}" />
+
+        <BoxView
+            Grid.ColumnSpan="5"
+            Grid.Row="4"
+            Style="{StaticResource ExchangeRateInfoHorizontalBoxViewStyle}" />
+
+        <controls:ExchangeRateItemControl
+            Grid.ColumnSpan="5"
+            Grid.Row="5"
+            Title="NAJWIĘKSZA RÓŻNICA KURSOWA"
+            Value="{Binding Path=GreatestExchangeRateDifference, Source={x:Reference RootView}}" />
+
+        <BoxView
+            Grid.ColumnSpan="5"
+            Grid.Row="6"
+            Style="{StaticResource ExchangeRateInfoHorizontalBoxViewStyle}" />
+    </Grid>
+</StackLayout>

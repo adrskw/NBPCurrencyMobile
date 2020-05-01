@@ -5,4 +5,6 @@
 
     <Color x:Key="PrimaryColor">Black</Color>
     <Color x:Key="SecondaryColor">DarkSlateGray</Color>
+    <Color x:Key="ExchangeRateInfoBoxViewColor">LightGray</Color>
+    <Color x:Key="ViewBackgroundColor">#f9f9f9</Color>
 </ResourceDictionary>

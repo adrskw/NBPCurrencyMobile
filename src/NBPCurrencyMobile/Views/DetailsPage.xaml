@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:NBPCurrencyMobile.Views.Controls"
+             mc:Ignorable="d"
+             x:Class="NBPCurrencyMobile.Views.DetailsPage"
+             Title="Dolar amerykański (USD)"
+             BackgroundColor="{StaticResource ViewBackgroundColor}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="10">
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="Center"
+                    Spacing="10">
+                    <Button Text="1 dzień" />
+                    <Button Text="7 dni"
+                            MinimumWidthRequest="0" />
+                    <Button Text="1 miesiąc" />
+                    <Button Text="domyślny" />
+                </StackLayout>
+
+                <controls:ExchangeRateInfoControl
+                    Title="KURS KUPNA"
+                    AverageExchangeRate="3.21"
+                    MinimumExchangeRate="3.21"
+                    MaximumExchangeRate="3.21"
+                    StandardDeviation="0.21"
+                    GreatestExchangeRateDifference="2020-/03-13   0,1026" />
+
+                <controls:ExchangeRateInfoControl
+                    Title="KURS SPRZEDAŻY"
+                    AverageExchangeRate="1.21"
+                    MinimumExchangeRate="2.21"
+                    MaximumExchangeRate="3.21"
+                    StandardDeviation="0.21"
+                    GreatestExchangeRateDifference="2020-03-13   0,5126" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
