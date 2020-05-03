@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using NBPCurrencyCore.Models;
+using Newtonsoft.Json;
 
 namespace NBPCurrencyCore
 {
@@ -21,6 +22,21 @@ namespace NBPCurrencyCore
 
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public async Task<ExchangeRatesTable> GetCurrentTable()
+        {
+            HttpResponseMessage response = await httpClient.GetAsync("exchangerates/tables/c/");
+            ExchangeRatesTable currentTable = null;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string body = await response.Content.ReadAsStringAsync();
+
+                currentTable = JsonConvert.DeserializeObject<List<ExchangeRatesTable>>(body)[0];
+            }
+
+            return currentTable;
         }
     }
 }
