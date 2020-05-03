@@ -6,7 +6,6 @@
              xmlns:controls="clr-namespace:NBPCurrencyMobile.Views.Controls"
              mc:Ignorable="d"
              x:Class="NBPCurrencyMobile.Views.DetailsPage"
-             Title="Dolar amerykański (USD)"
              BackgroundColor="{StaticResource ViewBackgroundColor}">
     <ContentPage.Content>
         <ScrollView>

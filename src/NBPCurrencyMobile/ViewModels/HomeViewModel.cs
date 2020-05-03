@@ -12,7 +12,7 @@ namespace NBPCurrencyMobile.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         public List<TableExchangeRate> ExchangeRates { get; set; }
-        public ICommand GoToDetailsCommand => goToDetailsCommand ?? (goToDetailsCommand = new Command(GoToDetails));
+        public ICommand GoToDetailsCommand => goToDetailsCommand ?? (goToDetailsCommand = new Command<TableExchangeRate>(GoToDetails));
         private ICommand goToDetailsCommand;
         private readonly INavigation navigation;
         private readonly NbpClient nbpClient;
@@ -32,9 +32,9 @@ namespace NBPCurrencyMobile.ViewModels
             RaisePropertyChanged(nameof(ExchangeRates));
         }
 
-        private void GoToDetails()
+        private void GoToDetails(TableExchangeRate exchangeRate)
         {
-            navigation.PushAsync(new DetailsPage());
+            navigation.PushAsync(new DetailsPage(exchangeRate));
         }
     }
 }
