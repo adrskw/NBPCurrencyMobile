@@ -21,6 +21,7 @@ namespace NBPCurrencyMobile.Views
             Title = $"{exchangeRate.CurrencyName} ({exchangeRate.CurrencyCode})";
 
             DetailsViewModel = new DetailsViewModel(exchangeRate.CurrencyCode);
+            BindingContext = DetailsViewModel;
         }
     }
 }
