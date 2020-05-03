@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NBPCurrencyCore\NBPCurrencyCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\Controls\ExchangeRateItemControl.xaml.cs">
       <DependentUpon>ExchangeRateItemControl.xaml</DependentUpon>
     </Compile>
