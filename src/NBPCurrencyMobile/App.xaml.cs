@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using NBPCurrencyMobile.Views;
+using System.Globalization;
 
 namespace NBPCurrencyMobile
 {
@@ -10,6 +11,7 @@ namespace NBPCurrencyMobile
         public App()
         {
             InitializeComponent();
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pl-PL");
 
             MainPage = new TabsPage();
         }

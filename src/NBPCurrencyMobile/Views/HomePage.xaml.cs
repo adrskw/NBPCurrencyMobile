@@ -17,14 +17,6 @@ namespace NBPCurrencyMobile.Views
             InitializeComponent();
 
             BindingContext = new HomeViewModel(Navigation);
-
-            // Example listview data
-            CurrencyListView.ItemsSource = new List<object>
-            {
-                new { CurrencyName = "dolar amerykański", CurrencyCode = "USD", CurrencyAverageExchangeRate = 4.22 },
-                new { CurrencyName = "dolar australijski", CurrencyCode = "AUD", CurrencyAverageExchangeRate = 2.67 },
-                new { CurrencyName = "dolar kanadyjski", CurrencyCode = "CAD", CurrencyAverageExchangeRate = 2.99 }
-            };
         }
 
         private void CurrencyListView_ItemTapped(object sender, ItemTappedEventArgs e)
