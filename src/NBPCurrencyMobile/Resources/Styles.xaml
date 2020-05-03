@@ -19,6 +19,7 @@
 
     <Style TargetType="StackLayout" x:Key="CurrencyListStackLayoutStyle">
         <Setter Property="Padding" Value="0,5,0,0" />
+        <Setter Property="Spacing" Value="2" />
     </Style>
 
     <Style TargetType="BoxView" x:Key="ExchangeRateInfoHorizontalBoxViewStyle">
@@ -55,7 +56,7 @@
         <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
         <Setter Property="LineBreakMode" Value="TailTruncation" />
     </Style>
-    
+
     <Style TargetType="Label" x:Key="ExchangeRateItemValueLabelStyle">
         <Setter Property="FontSize" Value="18" />
         <Setter Property="TextColor" Value="{StaticResource SecondaryColor}" />
