@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace NBPCurrencyCore.Models
 {
-    public class Currency
+    public class ApiCurrency
     {
         [JsonProperty("table")]
         public string TableType { get; set; }
@@ -17,6 +17,6 @@ namespace NBPCurrencyCore.Models
         public string Code { get; set; }
 
         [JsonProperty("rates")]
-        public List<CurrencyExchangeRate> ExchangeRates { get; set; }
+        public IEnumerable<CurrencyExchangeRate> ExchangeRates { get; set; }
     }
 }
