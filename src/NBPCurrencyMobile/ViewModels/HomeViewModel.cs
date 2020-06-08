@@ -15,19 +15,17 @@ namespace NBPCurrencyMobile.ViewModels
         public ICommand GoToDetailsCommand => goToDetailsCommand ?? (goToDetailsCommand = new Command<TableExchangeRate>(GoToDetails));
         private ICommand goToDetailsCommand;
         private readonly INavigation navigation;
-        private readonly NbpClient nbpClient;
 
         public HomeViewModel(INavigation navigation)
         {
             this.navigation = navigation;
 
-            nbpClient = new NbpClient();
             UpdateCurrentExchangeRates();
         }
 
         private async void UpdateCurrentExchangeRates()
         {
-            ExchangeRatesTable currentTable = await nbpClient.GetCurrentTable();
+            ExchangeRatesTable currentTable = await App.NbpClient.GetCurrentTable();
             ExchangeRates = currentTable.ExchangeRates;
             RaisePropertyChanged(nameof(ExchangeRates));
         }
