@@ -11,6 +11,7 @@ namespace NBPCurrencyCore
     public class NbpClient
     {
         private const string ApiUrl = "https://api.nbp.pl/api/";
+        private const int GetSeriesOfExchangeRatesTopCount = 255;
         private readonly HttpClient httpClient;
 
         public NbpClient()
@@ -37,6 +38,31 @@ namespace NBPCurrencyCore
             }
 
             return currentTable;
+        }
+
+        public async Task<CurrencyInfo> GetSeriesOfLatestExchangeRates(string currencyCode, int topCount = 1)
+        {
+            if (topCount < 1 || topCount > GetSeriesOfExchangeRatesTopCount)
+            {
+                throw new ArgumentException(
+                    $"Wrong number of exchange rates to download. Number should be between 1 and {GetSeriesOfExchangeRatesTopCount}");
+            }
+
+            HttpResponseMessage response = await httpClient.GetAsync($"exchangerates/rates/c/{currencyCode}/last/{topCount}/");
+
+            CurrencyInfo currencyData = null;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string body = await response.Content.ReadAsStringAsync();
+
+                ApiCurrency apiData = JsonConvert.DeserializeObject<ApiCurrency>(body);
+                CurrencyProcessor currencyProcessor = new CurrencyProcessor(apiData);
+
+                currencyData = new CurrencyInfo(currencyProcessor);
+            }
+
+            return currencyData;
         }
     }
 }
