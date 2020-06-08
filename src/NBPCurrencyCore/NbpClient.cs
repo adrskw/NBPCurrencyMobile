@@ -12,6 +12,8 @@ namespace NBPCurrencyCore
     {
         private const string ApiUrl = "https://api.nbp.pl/api/";
         private const int GetSeriesOfExchangeRatesTopCount = 255;
+        private const int MaximumNumberOfDaysForDownloadingData = 93;
+        private readonly DateTime CurrencyExchangeRatesCollectionStartDate = new DateTime(2002, 1, 2);
         private readonly HttpClient httpClient;
 
         public NbpClient()
@@ -40,7 +42,8 @@ namespace NBPCurrencyCore
             return currentTable;
         }
 
-        public async Task<CurrencyInfo> GetSeriesOfLatestExchangeRates(string currencyCode, int topCount = 1)
+        public async Task<CurrencyInfo> GetSeriesOfLatestExchangeRates(string currencyCode,
+                                                                        int topCount = 1)
         {
             if (topCount < 1 || topCount > GetSeriesOfExchangeRatesTopCount)
             {
@@ -49,6 +52,53 @@ namespace NBPCurrencyCore
             }
 
             HttpResponseMessage response = await httpClient.GetAsync($"exchangerates/rates/c/{currencyCode}/last/{topCount}/");
+
+            CurrencyInfo currencyData = null;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string body = await response.Content.ReadAsStringAsync();
+
+                ApiCurrency apiData = JsonConvert.DeserializeObject<ApiCurrency>(body);
+                CurrencyProcessor currencyProcessor = new CurrencyProcessor(apiData);
+
+                currencyData = new CurrencyInfo(currencyProcessor);
+            }
+
+            return currencyData;
+        }
+
+        public async Task<CurrencyInfo> GetSeriesOfExchangeRatesFromGivenPeriod(string currencyCode,
+                                                                                DateTime startDate,
+                                                                                DateTime endDate)
+        {
+            if (startDate > endDate) // swap dates if start date is greater than end date
+            {
+                DateTime temp = startDate;
+                startDate = endDate;
+                endDate = temp;
+            }
+
+            if (startDate < CurrencyExchangeRatesCollectionStartDate)
+            {
+                throw new ArgumentException(
+                    $"Start date cannot be earlier than {CurrencyExchangeRatesCollectionStartDate: d}");
+            }
+
+            if (endDate > DateTime.Now)
+            {
+                throw new ArgumentException($"End date cannot be later than current date");
+            }
+
+            TimeSpan givenPeriod = endDate - startDate;
+
+            if (givenPeriod.Days > MaximumNumberOfDaysForDownloadingData)
+            {
+                throw new ArgumentException($"Given period cannot exceed {MaximumNumberOfDaysForDownloadingData} days");
+            }
+
+            HttpResponseMessage response = await httpClient.GetAsync(
+                                        $"exchangerates/rates/c/{currencyCode}/{startDate: yyyy-MM-dd}/{endDate: yyyy-MM-dd}/");
 
             CurrencyInfo currencyData = null;
 
