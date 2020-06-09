@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using NBPCurrencyCore.Models;
+using Xamarin.Forms;
 
 namespace NBPCurrencyMobile.ViewModels
 {
@@ -9,9 +12,62 @@ namespace NBPCurrencyMobile.ViewModels
     {
         public string CurrencyCode { get; }
 
+        private CurrencyInfo currencyInfo;
+
+        public CurrencyInfo CurrencyInfo
+        {
+            get => currencyInfo;
+            set
+            {
+                SetProperty(ref currencyInfo, value);
+
+                UpdateProperties();
+            }
+        }
+
+        private string biggestDifferenceOfBidPrices;
+
+        public string BiggestDifferenceOfBidPrices
+        {
+            get => biggestDifferenceOfBidPrices;
+            set => SetProperty(ref biggestDifferenceOfBidPrices, value);
+        }
+
+        private string biggestDifferenceOfAskPrices;
+
+        public string BiggestDifferenceOfAskPrices
+        {
+            get => biggestDifferenceOfAskPrices;
+            set => SetProperty(ref biggestDifferenceOfAskPrices, value);
+        }
+
         public DetailsViewModel(string currencyCode)
         {
             CurrencyCode = currencyCode;
+            DownloadLatestData();
+        }
+
+        private void UpdateProperties()
+        {
+            BiggestDifferenceOfBidPrices = GetStringOfDifferencesOfPrices(CurrencyInfo.BidSummary.BiggestDifference);
+            BiggestDifferenceOfAskPrices = GetStringOfDifferencesOfPrices(CurrencyInfo.AskSummary.BiggestDifference);
+        }
+
+        private async Task DownloadLatestData()
+        {
+            CurrencyInfo = await App.NbpClient.GetSeriesOfLatestExchangeRates(CurrencyCode, 1);
+        }
+
+        private string GetStringOfDifferencesOfPrices(IEnumerable<ExchangeRate> rates)
+        {
+            string differenceOfPrices = "";
+
+            foreach (var difference in rates)
+            {
+                differenceOfPrices += $"{difference.Date: dd/MM/yyyy}   {difference.Value: 0.0000;-0.0000}\n";
+            }
+
+            return differenceOfPrices.TrimEnd(Environment.NewLine.ToCharArray());
         }
     }
 }

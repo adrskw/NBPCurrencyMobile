@@ -23,19 +23,19 @@
 
                 <controls:ExchangeRateInfoControl
                     Title="KURS KUPNA"
-                    AverageExchangeRate="3.21"
-                    MinimumExchangeRate="3.21"
-                    MaximumExchangeRate="3.21"
-                    StandardDeviation="0.21"
-                    GreatestExchangeRateDifference="2020-/03-13   0,1026" />
+                    AverageExchangeRate="{Binding CurrencyInfo.AskSummary.Average}"
+                    MinimumExchangeRate="{Binding CurrencyInfo.AskSummary.Minimum}"
+                    MaximumExchangeRate="{Binding CurrencyInfo.AskSummary.Maximum}"
+                    StandardDeviation="{Binding CurrencyInfo.AskSummary.StandardDeviation}"
+                    GreatestExchangeRateDifference="{Binding BiggestDifferenceOfAskPrices}" />
 
                 <controls:ExchangeRateInfoControl
                     Title="KURS SPRZEDAŻY"
-                    AverageExchangeRate="1.21"
-                    MinimumExchangeRate="2.21"
-                    MaximumExchangeRate="3.21"
-                    StandardDeviation="0.21"
-                    GreatestExchangeRateDifference="2020-03-13   0,5126" />
+                    AverageExchangeRate="{Binding CurrencyInfo.BidSummary.Average}"
+                    MinimumExchangeRate="{Binding CurrencyInfo.BidSummary.Minimum}"
+                    MaximumExchangeRate="{Binding CurrencyInfo.BidSummary.Maximum}"
+                    StandardDeviation="{Binding CurrencyInfo.BidSummary.StandardDeviation}"
+                    GreatestExchangeRateDifference="{Binding BiggestDifferenceOfBidPrices}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
