@@ -15,7 +15,7 @@
         x:Name="InfoGrid"
         Style="{StaticResource ExchangeRateInfoGridStyle}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="0.8*" />
             <ColumnDefinition Width="8" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="8" />
@@ -38,7 +38,7 @@
             Grid.Column="0"
             Grid.Row="1"
             Title="ŚREDNI"
-            Value="{Binding Path=AverageExchangeRate, Source={x:Reference RootView}}" />
+            Value="{Binding Path=AverageExchangeRate, Source={x:Reference RootView}, StringFormat='{0:0.0000}'}" />
         <BoxView
             Grid.Column="1"
             Grid.Row="1"
@@ -48,7 +48,7 @@
             Grid.Column="2"
             Grid.Row="1"
             Title="MINIMALNY"
-            Value="{Binding Path=MinimumExchangeRate, Source={x:Reference RootView}}" />
+            Value="{Binding Path=MinimumExchangeRate, Source={x:Reference RootView}, StringFormat='{0:0.0000}'}" />
 
         <BoxView
             Grid.Column="3"
@@ -59,7 +59,7 @@
             Grid.Column="4"
             Grid.Row="1"
             Title="MAKSYMALNY"
-            Value="{Binding Path=MaximumExchangeRate, Source={x:Reference RootView}}" />
+            Value="{Binding Path=MaximumExchangeRate, Source={x:Reference RootView}, StringFormat='{0:0.0000}'}" />
 
         <BoxView
             Grid.ColumnSpan="5"
@@ -70,7 +70,7 @@
             Grid.ColumnSpan="5"
             Grid.Row="3"
             Title="ODCHYLENIE STANDARDOWE"
-            Value="{Binding Path=StandardDeviation, Source={x:Reference RootView}}" />
+            Value="{Binding Path=StandardDeviation, Source={x:Reference RootView}, StringFormat='{0:0.0000#}'}" />
 
         <BoxView
             Grid.ColumnSpan="5"
