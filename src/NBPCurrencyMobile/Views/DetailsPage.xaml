@@ -14,10 +14,15 @@
                     Orientation="Horizontal"
                     HorizontalOptions="Center"
                     Spacing="10">
-                    <Button Text="1 dzień" />
+                    <Button Text="1 dzień"
+                            Command="{Binding DownloadLatestDataCommand}" />
                     <Button Text="7 dni"
+                            Command="{Binding DownloadDataFromTheLastDaysCommand}"
+                            CommandParameter="7"
                             MinimumWidthRequest="0" />
-                    <Button Text="1 miesiąc" />
+                    <Button Text="1 miesiąc"
+                            Command="{Binding DownloadDataFromTheLastDaysCommand}"
+                            CommandParameter="30" />
                     <Button Text="domyślny" />
                 </StackLayout>
 

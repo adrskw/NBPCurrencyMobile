@@ -41,6 +41,22 @@ namespace NBPCurrencyMobile.ViewModels
             set => SetProperty(ref biggestDifferenceOfAskPrices, value);
         }
 
+        public ICommand DownloadLatestDataCommand => downloadLatestDataCommand ?? (downloadLatestDataCommand = new Command(
+                                                                async () => await DownloadLatestData(numberOfRecentData: 1)));
+
+        private ICommand downloadLatestDataCommand;
+
+        public ICommand DownloadDataFromTheLastDaysCommand
+                            => downloadDataFromTheLastDaysCommand ?? (downloadDataFromTheLastDaysCommand = new Command<string>(
+                                            async (parameter) =>
+                                            {
+                                                int numberOfDays = int.Parse(parameter);
+                                                await DownloadDataForGivenPeriod(startDate: DateTime.Now.AddDays(-numberOfDays),
+                                                                                    endDate: DateTime.Now);
+                                            }));
+
+        private ICommand downloadDataFromTheLastDaysCommand;
+
         public DetailsViewModel(string currencyCode)
         {
             CurrencyCode = currencyCode;
@@ -53,9 +69,15 @@ namespace NBPCurrencyMobile.ViewModels
             BiggestDifferenceOfAskPrices = GetStringOfDifferencesOfPrices(CurrencyInfo.AskSummary.BiggestDifference);
         }
 
-        private async Task DownloadLatestData()
+        private async Task DownloadLatestData(int numberOfRecentData = 1)
         {
-            CurrencyInfo = await App.NbpClient.GetSeriesOfLatestExchangeRates(CurrencyCode, 1);
+            CurrencyInfo = await App.NbpClient.GetSeriesOfLatestExchangeRates(CurrencyCode, numberOfRecentData);
+        }
+
+        private async Task DownloadDataForGivenPeriod(DateTime startDate,
+                                                        DateTime endDate)
+        {
+            CurrencyInfo = await App.NbpClient.GetSeriesOfExchangeRatesFromGivenPeriod(CurrencyCode, startDate, endDate);
         }
 
         private string GetStringOfDifferencesOfPrices(IEnumerable<ExchangeRate> rates)
