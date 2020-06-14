@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NBPCurrencyMobile.Views.Controls.SettingsDatePickerCellControl"
+             x:Name="RootView">
+    <StackLayout Orientation="Horizontal"
+                    Padding="20,0">
+        <Label Text="{Binding Path=Text, Source={x:Reference RootView}}"
+                FontSize="16"
+                VerticalTextAlignment="Center" />
+        <DatePicker HorizontalOptions="EndAndExpand"
+                    FontSize="18"
+                    DateSelected="DatePicker_DateSelected"
+                    MinimumDate="{Binding Path=MinimumDate, Source={x:Reference RootView}}"
+                    MaximumDate="{Binding Path=MaximumDate, Source={x:Reference RootView}}" />
+    </StackLayout>
+</ViewCell>

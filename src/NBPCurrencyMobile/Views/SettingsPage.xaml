@@ -3,13 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:NBPCurrencyMobile.Views.Controls"
              mc:Ignorable="d"
              x:Class="NBPCurrencyMobile.Views.SettingsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="SettingsPage View!"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
+            <TableView Intent="Settings">
+                <TableRoot>
+                    <TableSection Title="Domyślny okres pobierania danych">
+                        <controls:SettingsDatePickerCellControl
+                            Text="Data początkowa"
+                            x:Name="StartDateSetting"
+                            OnDateSelected="StartDateSetting_OnDateSelected" />
+                        <controls:SettingsDatePickerCellControl
+                            Text="Data końcowa"
+                            x:Name="EndDateSetting"
+                            OnDateSelected="EndDateSetting_OnDateSelected" />
+                    </TableSection>
+                    <TableSection Title="Wyświetlane waluty"
+                                  x:Name="DisplayedCurrenciesTableSection" />
+                </TableRoot>
+            </TableView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

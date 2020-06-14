@@ -24,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Controls\SettingsCurrencySwitchCellControl.xaml.cs">
+      <DependentUpon>SettingsCurrencySwitchCellControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\SettingsDatePickerCellControl.xaml.cs">
+      <DependentUpon>SettingsDatePickerCellControl.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Controls\ExchangeRateItemControl.xaml.cs">
       <DependentUpon>ExchangeRateItemControl.xaml</DependentUpon>
     </Compile>
