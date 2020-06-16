@@ -4,12 +4,8 @@
              x:Class="NBPCurrencyMobile.Views.Controls.SettingsCurrencySwitchCellControl"
              x:Name="RootView">
     <StackLayout Orientation="Horizontal"
-                    Padding="20,0">
-        <StackLayout.GestureRecognizers>
-            <TapGestureRecognizer Tapped="Switch_Toggled" />
-        </StackLayout.GestureRecognizers>
-        <Label FontSize="16"
-                VerticalTextAlignment="Center">
+                 Style="{StaticResource SettingsCellStackLayoutStyle}">
+        <Label Style="{StaticResource SettingsCellLabelStyle}">
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="{Binding Path=CurrencyName, Source={x:Reference RootView}}" />
@@ -17,7 +13,8 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <Switch HorizontalOptions="EndAndExpand"
-                IsToggled="{Binding Path=IsToggled, Source={x:Reference RootView}, Mode=TwoWay}" />
+        <Switch Style="{StaticResource SettingsCurrencySwitchCellSwitchStyle}"
+                IsToggled="{Binding Path=IsToggled, Source={x:Reference RootView}, Mode=TwoWay}"
+                Toggled="Switch_Toggled" />
     </StackLayout>
 </ViewCell>

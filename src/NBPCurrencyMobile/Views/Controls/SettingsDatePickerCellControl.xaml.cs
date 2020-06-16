@@ -27,6 +27,18 @@ namespace NBPCurrencyMobile.Views.Controls
             set { SetValue(TextProperty, value); }
         }
 
+        public static readonly BindableProperty DisplayedDateProperty = BindableProperty.Create(
+            propertyName: nameof(DisplayedDate),
+            returnType: typeof(DateTime),
+            declaringType: typeof(SettingsDatePickerCellControl),
+            defaultValue: DateTime.Now);
+
+        public DateTime DisplayedDate
+        {
+            get { return (DateTime)GetValue(DisplayedDateProperty); }
+            set { SetValue(DisplayedDateProperty, value); }
+        }
+
         public static readonly BindableProperty MinimumDateProperty = BindableProperty.Create(
             propertyName: nameof(MinimumDate),
             returnType: typeof(DateTime),

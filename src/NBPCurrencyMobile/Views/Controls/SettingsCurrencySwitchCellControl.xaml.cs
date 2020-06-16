@@ -11,7 +11,7 @@ namespace NBPCurrencyMobile.Views.Controls
 {
     public partial class SettingsCurrencySwitchCellControl : ViewCell
     {
-        public delegate void SwitchToggledHandler(object sender, EventArgs e);
+        public delegate void SwitchToggledHandler(object sender, ToggledEventArgs e);
 
         public event SwitchToggledHandler OnSwitchToggled;
 
@@ -56,10 +56,9 @@ namespace NBPCurrencyMobile.Views.Controls
             InitializeComponent();
         }
 
-        private void Switch_Toggled(object sender, EventArgs e)
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
             OnSwitchToggled?.Invoke(this, e);
-            IsToggled = !IsToggled;
         }
     }
 }

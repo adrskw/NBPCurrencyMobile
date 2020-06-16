@@ -4,13 +4,12 @@
              x:Class="NBPCurrencyMobile.Views.Controls.SettingsDatePickerCellControl"
              x:Name="RootView">
     <StackLayout Orientation="Horizontal"
-                    Padding="20,0">
-        <Label Text="{Binding Path=Text, Source={x:Reference RootView}}"
-                FontSize="16"
-                VerticalTextAlignment="Center" />
-        <DatePicker HorizontalOptions="EndAndExpand"
-                    FontSize="18"
+                 Style="{StaticResource SettingsCellStackLayoutStyle}">
+        <Label Style="{StaticResource SettingsCellLabelStyle}"
+               Text="{Binding Path=Text, Source={x:Reference RootView}}" />
+        <DatePicker Style="{StaticResource SettingsDatePickerCellDatePickerStyle}"
                     DateSelected="DatePicker_DateSelected"
+                    Date="{Binding Path=DisplayedDate, Source={x:Reference RootView}}"
                     MinimumDate="{Binding Path=MinimumDate, Source={x:Reference RootView}}"
                     MaximumDate="{Binding Path=MaximumDate, Source={x:Reference RootView}}" />
     </StackLayout>
