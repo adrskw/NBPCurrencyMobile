@@ -8,20 +8,41 @@
              x:Class="NBPCurrencyMobile.Views.SettingsPage">
     <ContentPage.Content>
         <StackLayout>
-            <TableView Intent="Settings">
+            <TableView Intent="Settings"
+                       HasUnevenRows="True">
                 <TableRoot>
-                    <TableSection Title="Domyślny okres pobierania danych">
+                    <TableSection Title="Domyślny okres pobierania danych (max 93 dni)">
                         <controls:SettingsDatePickerCellControl
                             Text="Data początkowa"
-                            x:Name="StartDateSetting"
+                            DisplayedDate="{Binding DefaultStartDate}"
+                            MinimumDate="{Binding MinimumDefaultStartDate}"
+                            MaximumDate="{Binding DefaultEndDate}"
                             OnDateSelected="StartDateSetting_OnDateSelected" />
                         <controls:SettingsDatePickerCellControl
                             Text="Data końcowa"
-                            x:Name="EndDateSetting"
+                            DisplayedDate="{Binding DefaultEndDate}"
+                            MinimumDate="{Binding MinimumDefaultDate}"
+                            MaximumDate="{Binding MaximumDefaultDate}"
                             OnDateSelected="EndDateSetting_OnDateSelected" />
                     </TableSection>
-                    <TableSection Title="Wyświetlane waluty"
-                                  x:Name="DisplayedCurrenciesTableSection" />
+                    <TableSection Title="Wyświetlane waluty">
+                        <ViewCell>
+                            <ListView ItemsSource="{Binding CurrencyDisplaySwitches}"
+                                        VerticalOptions="FillAndExpand"
+                                        RowHeight="50"
+                                        SelectionMode="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <controls:SettingsCurrencySwitchCellControl
+                                            CurrencyCode="{Binding CurrencyCode}"
+                                            CurrencyName="{Binding CurrencyName}"
+                                            IsToggled="{Binding IsToggled}"
+                                            OnSwitchToggled="DisplayedCurrenciesSettings_SwitchToggled" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </ViewCell>
+                    </TableSection>
                 </TableRoot>
             </TableView>
         </StackLayout>
