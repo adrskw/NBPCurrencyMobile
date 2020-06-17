@@ -36,8 +36,17 @@ namespace NBPCurrencyMobile.ViewModels
             get => defaultEndDate;
             set
             {
+                if (MinimumDefaultStartDate > value) // fix crash with date picker maximum date being less than minimum date
+                {
+                    CalculateMinimumDefaultStartDate(value);
+                }
+
                 SetProperty(ref defaultEndDate, value);
-                CalculateMinimumDefaultStartDate();
+
+                if (MinimumDefaultStartDate <= value)
+                {
+                    CalculateMinimumDefaultStartDate(value);
+                }
             }
         }
 
@@ -66,7 +75,7 @@ namespace NBPCurrencyMobile.ViewModels
         {
             GetCurrentDefaultDates();
             GetCurrentDisplayedCurrenciesSettings();
-            CalculateMinimumDefaultStartDate();
+            CalculateMinimumDefaultStartDate(DefaultEndDate);
         }
 
         public void GetCurrentDefaultDates()
@@ -110,9 +119,9 @@ namespace NBPCurrencyMobile.ViewModels
             App.Database.UpdateDisplayedCurrencySetting(setting);
         }
 
-        private void CalculateMinimumDefaultStartDate()
+        private void CalculateMinimumDefaultStartDate(DateTime endDate)
         {
-            MinimumDefaultStartDate = DefaultEndDate.AddDays(-App.NbpClient.MaximumNumberOfDaysForDownloadingData);
+            MinimumDefaultStartDate = endDate.AddDays(-App.NbpClient.MaximumNumberOfDaysForDownloadingData);
         }
     }
 }
