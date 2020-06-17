@@ -12,18 +12,26 @@ namespace NBPCurrencyMobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        public HomeViewModel HomeViewModel { get; }
+
         public HomePage()
         {
             InitializeComponent();
 
-            BindingContext = new HomeViewModel(Navigation);
+            HomeViewModel = new HomeViewModel(Navigation);
+            BindingContext = HomeViewModel;
         }
 
         private void CurrencyListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            HomeViewModel homeViewModel = BindingContext as HomeViewModel;
-            homeViewModel.GoToDetailsCommand.Execute(e.Item);
-            CurrencyListView.SelectedItem = null;
+            HomeViewModel.GoToDetailsCommand.Execute(e.Item);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            HomeViewModel.UpdateCurrentExchangeRates();
         }
     }
 }

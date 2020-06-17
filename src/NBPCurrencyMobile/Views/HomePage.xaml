@@ -11,6 +11,7 @@
         ItemsSource="{Binding ExchangeRates}"
         VerticalOptions="FillAndExpand"
         HasUnevenRows="True"
+        SelectionMode="None"
         ItemTapped="CurrencyListView_ItemTapped">
         <ListView.ItemTemplate>
             <DataTemplate>
