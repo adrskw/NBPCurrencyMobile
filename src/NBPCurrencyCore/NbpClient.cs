@@ -14,6 +14,7 @@ namespace NBPCurrencyCore
         public int MaximumNumberOfDaysForDownloadingData { get; } = 93;
         public DateTime CurrencyExchangeRatesCollectionStartDate { get; } = new DateTime(2002, 1, 2);
         public TimeSpan TableCUpdateTime { get; } = new TimeSpan(8, 15, 0); // table C is updated every Polish business day at 8.15 AM
+        public TimeZoneInfo ApiTimeZone { get; } = TimeZoneInfo.FindSystemTimeZoneById("Europe/Warsaw");
         private readonly string ApiUrl = "https://api.nbp.pl/api/";
         private readonly HttpClient httpClient;
 
