@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using NBPCurrencyCore;
 using NBPCurrencyCore.Models;
@@ -25,6 +26,30 @@ namespace NBPCurrencyMobile.ViewModels
             }
         }
 
+        private bool isRefreshing = false;
+
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                SetProperty(ref isRefreshing, value);
+            }
+        }
+
+        public ICommand RefreshCommand
+                            => refreshCommand ?? (refreshCommand = new Command(
+                                async () =>
+                                {
+                                    IsRefreshing = true;
+
+                                    await UpdateCurrentExchangeRates(isUpdateForced: true);
+
+                                    IsRefreshing = false;
+                                }));
+
+        private ICommand refreshCommand;
+
         public ICommand GoToDetailsCommand => goToDetailsCommand ?? (goToDetailsCommand = new Command<TableExchangeRate>(GoToDetails));
         private ICommand goToDetailsCommand;
         private readonly INavigation navigation;
@@ -36,7 +61,7 @@ namespace NBPCurrencyMobile.ViewModels
             UpdateCurrentExchangeRates();
         }
 
-        public async void UpdateCurrentExchangeRates(bool isUpdateForced = false)
+        public async Task UpdateCurrentExchangeRates(bool isUpdateForced = false)
         {
             List<TableExchangeRate> exchangeRatesData;
 

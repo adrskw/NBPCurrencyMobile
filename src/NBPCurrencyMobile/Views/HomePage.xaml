@@ -12,6 +12,9 @@
         VerticalOptions="FillAndExpand"
         HasUnevenRows="True"
         SelectionMode="None"
+        IsPullToRefreshEnabled="True"
+        RefreshCommand="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsRefreshing}"
         ItemTapped="CurrencyListView_ItemTapped">
         <ListView.ItemTemplate>
             <DataTemplate>
