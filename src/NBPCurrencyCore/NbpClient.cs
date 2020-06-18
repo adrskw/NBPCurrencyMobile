@@ -13,7 +13,7 @@ namespace NBPCurrencyCore
         public int GetSeriesOfExchangeRatesTopCount { get; } = 255;
         public int MaximumNumberOfDaysForDownloadingData { get; } = 93;
         public DateTime CurrencyExchangeRatesCollectionStartDate { get; } = new DateTime(2002, 1, 2);
-        public DateTime TableCUpdateTime { get; } = new DateTime(0, 0, 0, 8, 15, 0); // table C is updated every Polish business day at 8.15 AM
+        public DateTime TableCUpdateTime { get; } = new DateTime(1, 1, 1, 8, 15, 0); // table C is updated every Polish business day at 8.15 AM
         private readonly string ApiUrl = "https://api.nbp.pl/api/";
         private readonly HttpClient httpClient;
 
