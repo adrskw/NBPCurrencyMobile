@@ -23,7 +23,8 @@
                     <Button Text="1 miesiąc"
                             Command="{Binding DownloadDataFromTheLastDaysCommand}"
                             CommandParameter="30" />
-                    <Button Text="domyślny" />
+                    <Button Text="domyślny"
+                            Command="{Binding DownloadDataForDefaultPeriodCommand}"/>
                 </StackLayout>
 
                 <controls:ExchangeRateInfoControl

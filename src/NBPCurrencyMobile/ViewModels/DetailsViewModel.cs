@@ -57,10 +57,19 @@ namespace NBPCurrencyMobile.ViewModels
 
         private ICommand downloadDataFromTheLastDaysCommand;
 
+        public ICommand DownloadDataForDefaultPeriodCommand
+                            => downloadDataForDefaultPeriodCommand ?? (downloadDataForDefaultPeriodCommand = new Command(
+                                            async () =>
+                                            {
+                                                await DownloadDataForDefaultPeriod();
+                                            }));
+
+        private ICommand downloadDataForDefaultPeriodCommand;
+
         public DetailsViewModel(string currencyCode)
         {
             CurrencyCode = currencyCode;
-            DownloadLatestData();
+            DownloadDataForDefaultPeriod();
         }
 
         private void UpdateProperties()
@@ -80,6 +89,12 @@ namespace NBPCurrencyMobile.ViewModels
             CurrencyInfo = await App.NbpClient.GetSeriesOfExchangeRatesFromGivenPeriod(CurrencyCode, startDate, endDate);
         }
 
+        private async Task DownloadDataForDefaultPeriod()
+        {
+            await DownloadDataForGivenPeriod(startDate: GetDefaultStartDate(),
+                                             endDate: GetDefaultEndDate());
+        }
+
         private string GetStringOfDifferencesOfPrices(IEnumerable<ExchangeRate> rates)
         {
             string differenceOfPrices = "";
@@ -90,6 +105,16 @@ namespace NBPCurrencyMobile.ViewModels
             }
 
             return differenceOfPrices.TrimEnd(Environment.NewLine.ToCharArray());
+        }
+
+        private DateTime GetDefaultStartDate()
+        {
+            return Convert.ToDateTime(App.Database.GetSetting("DefaultStartDate").Value);
+        }
+
+        private DateTime GetDefaultEndDate()
+        {
+            return Convert.ToDateTime(App.Database.GetSetting("DefaultEndDate").Value);
         }
     }
 }
