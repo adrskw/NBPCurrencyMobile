@@ -74,7 +74,9 @@ namespace NBPCurrencyMobile.ViewModels
                 ExchangeRatesTable currentTable = await App.NbpClient.GetCurrentTable();
                 exchangeRatesData = currentTable.ExchangeRates;
 
-                DateTime dataValidUntil = currentTable.EffectiveDate.Date.AddDays(1) + App.NbpClient.TableCUpdateTime;
+                DateTime dataValidUntil = TimeZoneInfo.ConvertTimeToUtc(
+                                                        currentTable.EffectiveDate.Date.AddDays(1) + App.NbpClient.TableCUpdateTime,
+                                                        App.NbpClient.ApiTimeZone);
                 App.Database.UpdateSetting(new SettingEntity("DatabaseDataValidUntil", dataValidUntil.ToString("s")));
                 App.Database.SaveTableExchangeRates(exchangeRatesData);
             }
@@ -100,7 +102,7 @@ namespace NBPCurrencyMobile.ViewModels
                 return false;
             }
 
-            return databaseDataValidUntil >= DateTime.Now;
+            return databaseDataValidUntil >= DateTime.UtcNow;
         }
     }
 }
