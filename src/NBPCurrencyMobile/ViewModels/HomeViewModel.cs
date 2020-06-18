@@ -36,16 +36,46 @@ namespace NBPCurrencyMobile.ViewModels
             UpdateCurrentExchangeRates();
         }
 
-        public async void UpdateCurrentExchangeRates()
+        public async void UpdateCurrentExchangeRates(bool isUpdateForced = false)
         {
-            ExchangeRatesTable currentTable = await App.NbpClient.GetCurrentTable();
+            List<TableExchangeRate> exchangeRatesData;
+
+            if (IsExchangeRateDatabaseDataUpToDate() && !isUpdateForced)
+            {
+                exchangeRatesData = App.Database.GetTableExchangeRates();
+            }
+            else
+            {
+                ExchangeRatesTable currentTable = await App.NbpClient.GetCurrentTable();
+                exchangeRatesData = currentTable.ExchangeRates;
+
+                DateTime dataValidUntil = currentTable.EffectiveDate.Date.AddDays(1) + App.NbpClient.TableCUpdateTime;
+                App.Database.UpdateSetting(new SettingEntity("DatabaseDataValidUntil", dataValidUntil.ToString("s")));
+                App.Database.SaveTableExchangeRates(exchangeRatesData);
+            }
+
             List<SettingDisplayedCurrencyEntity> displayedCurrencySettings = App.Database.GetDisplayedCurrenciesSettings();
-            ExchangeRates = currentTable.ExchangeRates.Where(rate => displayedCurrencySettings.Any(setting => rate.CurrencyCode == setting.CurrencyCode && setting.IsDisplayed)).ToList();
+            ExchangeRates = exchangeRatesData.Where(
+                rate => displayedCurrencySettings.Any(
+                    setting => rate.CurrencyCode == setting.CurrencyCode && setting.IsDisplayed)).ToList();
         }
 
         private void GoToDetails(TableExchangeRate exchangeRate)
         {
             navigation.PushAsync(new DetailsPage(exchangeRate));
+        }
+
+        private bool IsExchangeRateDatabaseDataUpToDate()
+        {
+            SettingEntity setting = App.Database.GetSetting("DatabaseDataValidUntil");
+            DateTime databaseDataValidUntil = Convert.ToDateTime(setting.Value);
+
+            if (App.Database.GetTableExchangeRates().Count == 0)
+            {
+                return false;
+            }
+
+            return databaseDataValidUntil >= DateTime.Now;
         }
     }
 }
