@@ -102,14 +102,14 @@ namespace NBPCurrencyMobile.ViewModels
         private void UpdateDefaultStartDate(DateTime date)
         {
             DefaultStartDate = date;
-            SettingEntity setting = new SettingEntity("DefaultStartDate", date.ToString("d"));
+            SettingEntity setting = new SettingEntity("DefaultStartDate", date.ToString("s"));
             App.Database.UpdateSetting(setting);
         }
 
         private void UpdateDefaultEndDate(DateTime date)
         {
             DefaultEndDate = date;
-            SettingEntity setting = new SettingEntity("DefaultEndDate", date.ToString("d"));
+            SettingEntity setting = new SettingEntity("DefaultEndDate", date.ToString("s"));
             App.Database.UpdateSetting(setting);
         }
 

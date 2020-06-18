@@ -42,8 +42,8 @@ namespace NBPCurrencyMobile.Models
         {
             List<SettingEntity> defaultSettings = new List<SettingEntity>
             {
-                new SettingEntity("DefaultStartDate", DateTime.Now.AddDays(-30).ToString("d")),
-                new SettingEntity("DefaultEndDate", DateTime.Now.ToString("d"))
+                new SettingEntity("DefaultStartDate", DateTime.Now.AddDays(-30).ToString("s")),
+                new SettingEntity("DefaultEndDate", DateTime.Now.ToString("s")),
             };
 
             db.BeginTransaction();
