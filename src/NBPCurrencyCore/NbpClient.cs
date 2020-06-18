@@ -10,9 +10,9 @@ namespace NBPCurrencyCore
 {
     public class NbpClient
     {
-        public readonly int GetSeriesOfExchangeRatesTopCount = 255;
-        public readonly int MaximumNumberOfDaysForDownloadingData = 93;
-        public readonly DateTime CurrencyExchangeRatesCollectionStartDate = new DateTime(2002, 1, 2);
+        public int GetSeriesOfExchangeRatesTopCount { get; } = 255;
+        public int MaximumNumberOfDaysForDownloadingData { get; } = 93;
+        public DateTime CurrencyExchangeRatesCollectionStartDate { get; } = new DateTime(2002, 1, 2);
         private readonly string ApiUrl = "https://api.nbp.pl/api/";
         private readonly HttpClient httpClient;
 
