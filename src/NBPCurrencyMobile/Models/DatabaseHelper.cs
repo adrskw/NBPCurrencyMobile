@@ -26,6 +26,7 @@ namespace NBPCurrencyMobile.Models
         {
             db.CreateTable<SettingDisplayedCurrencyEntity>();
             db.CreateTable<SettingEntity>();
+            db.CreateTable<TableExchangeRateEntity>();
 
             if (db.Table<SettingEntity>().Count() == 0)
             {
@@ -44,6 +45,7 @@ namespace NBPCurrencyMobile.Models
             {
                 new SettingEntity("DefaultStartDate", DateTime.Now.AddDays(-30).ToString("s")),
                 new SettingEntity("DefaultEndDate", DateTime.Now.ToString("s")),
+                new SettingEntity("DatabaseDataValidUntil", DateTime.MinValue.ToString("s"))
             };
 
             db.BeginTransaction();
@@ -83,6 +85,17 @@ namespace NBPCurrencyMobile.Models
             return db.Table<SettingDisplayedCurrencyEntity>().ToList();
         }
 
+        public List<TableExchangeRate> GetTableExchangeRates()
+        {
+            return db.Table<TableExchangeRateEntity>().Select(rateEntity => new TableExchangeRate()
+            {
+                CurrencyCode = rateEntity.CurrencyCode,
+                CurrencyName = rateEntity.CurrencyName,
+                Bid = rateEntity.Bid,
+                Ask = rateEntity.Ask
+            }).ToList();
+        }
+
         public void UpdateSetting(SettingEntity setting)
         {
             db.Update(setting);
@@ -91,6 +104,17 @@ namespace NBPCurrencyMobile.Models
         public void UpdateDisplayedCurrencySetting(SettingDisplayedCurrencyEntity setting)
         {
             db.Update(setting);
+        }
+
+        public void SaveTableExchangeRates(List<TableExchangeRate> tableExchangeRates)
+        {
+            List<TableExchangeRateEntity> tableExchangeRateEntities = tableExchangeRates.Select(
+                rate => new TableExchangeRateEntity(rate)).ToList();
+
+            db.BeginTransaction();
+            db.DeleteAll<TableExchangeRateEntity>();
+            db.InsertAll(tableExchangeRateEntities, runInTransaction: false);
+            db.Commit();
         }
 
         public void Dispose()
